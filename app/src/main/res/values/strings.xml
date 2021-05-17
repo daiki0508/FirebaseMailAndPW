@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">FirebaseFirstSample</string>
+    <string name="hello">Hello World!</string>
+    <string name="description">Please log in to the app.\nIf you don\'t have an account, sign up</string>
+    <string name="mail">Mail:</string>
+    <string name="sample_mail">example@hogehoge.jp</string>
+    <string name="pass">Password:</string>
+    <string name="sample_pass">Password</string>
+    <string name="signup">SignUp</string>
+    <string name="login_button">Login</string>
+    <string name="signup_button">SignUp</string>
+    <string name="signout">SignOut</string>
+</resources>
