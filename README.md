@@ -8,6 +8,6 @@
 5. If the authentication is successful, the user information will be displayed at the bottom of the application screen.
 6. You can sign out from the options menu.
 
-[Firebaseを使ってメール/パスワード認証を実装してみた]()
+[Firebaseを使ってメール/パスワード認証を実装してみた](https://daiki0508.hatenablog.com/entry/2021/05/18/200000)
 <br>
 (2021/05/18 20:00公開予定)
