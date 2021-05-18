@@ -57,6 +57,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:hint="@string/sample_pass"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -65,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:maxLength="20"/>
+                android:maxLength="20" />
         </com.google.android.material.textfield.TextInputLayout>
 
     <Button

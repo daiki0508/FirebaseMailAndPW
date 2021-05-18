@@ -1,6 +1,5 @@
 package com.websarva.wings.android.firebasefirstsample;
 
-import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -14,12 +13,30 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
-public class RegisterClass extends MainActivity{
+public class AuthenticationFlowClass extends MainActivity{
     private final FirebaseAuth mAuth;
     private final MainActivity mainActivity;
-    RegisterClass(MainActivity mainActivity){
+
+    AuthenticationFlowClass (MainActivity mainActivity){
         this.mAuth = MainActivity.mAuth;
         this.mainActivity = mainActivity;
+    }
+
+    void SignIn(String email, String pass){
+        mAuth.signInWithEmailAndPassword(email, pass)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+                            Log.d("success_signIn","signInWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            mainActivity.updateUI(Objects.requireNonNull(user));
+                        }else {
+                            Log.w("Error","signInWithEmail:failure",task.getException());
+                            Toast.makeText(mainActivity,"Authentication failed.",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
     void CreateUser(String mail, String pass){
@@ -33,7 +50,7 @@ public class RegisterClass extends MainActivity{
                             mainActivity.updateUI(Objects.requireNonNull(user));
                         }else {
                             Log.w("Error","createUserWithEmail:failure",task.getException());
-                            Toast.makeText(RegisterClass.this,"認証エラー",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mainActivity,"エラーが発生しました",Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

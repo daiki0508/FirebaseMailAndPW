@@ -25,9 +25,9 @@ public class MainActivity extends AppCompatActivity{
     private boolean flag;
     private EditText mail_e;
     private EditText pass_e;
+    private Button execute_b;
     protected static FirebaseAuth mAuth;
-    private RegisterClass rc;
-    private SignInClass sic;
+    private AuthenticationFlowClass afc;
     private TextView resultText;
 
     @Override
@@ -35,13 +35,13 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mail_e = findViewById(R.id.mail_edit);
-        pass_e = findViewById(R.id.password_edit);
-
         mAuth = FirebaseAuth.getInstance();
 
-        rc = new RegisterClass(this);
-        sic = new SignInClass(this);
+        mail_e = findViewById(R.id.mail_edit);
+        pass_e = findViewById(R.id.password_edit);
+        execute_b = findViewById(R.id.execute_button);
+
+        afc = new AuthenticationFlowClass(this);
 
         resultText = findViewById(R.id.result);
 
@@ -53,13 +53,7 @@ public class MainActivity extends AppCompatActivity{
         String mail_str = mail_e.getText().toString();
         String pass_str = pass_e.getText().toString();
 
-        if (flag) {
-            EditCheck(mail_str,pass_str);
-        } else {
-            Log.d("test", "hogehoge");
-            EditCheck(mail_str,pass_str);
-            sic.SignIn(mail_str, pass_str);
-        }
+        EditCheck(mail_str,pass_str);
     }
 
     protected void updateUI(FirebaseUser user){
@@ -73,7 +67,11 @@ public class MainActivity extends AppCompatActivity{
 
     private void EditCheck(String email,String pass){
         if (email.length() > 0 && pass.length() > 0) {
-            rc.CreateUser(email, pass);
+            if (flag){
+                afc.CreateUser(email, pass);
+            }else {
+                afc.SignIn(email, pass);
+            }
         } else if (email.length() == 0) {
             Toast.makeText(this, "mailアドレスが入力されていません", Toast.LENGTH_SHORT).show();
             if (pass.length() == 0) {
@@ -98,7 +96,6 @@ public class MainActivity extends AppCompatActivity{
 
         if (itemId == R.id.signout){
             mAuth.signOut();
-            recreate();
             finish();
             overridePendingTransition(0,0);
             startActivity(getIntent());
@@ -112,7 +109,12 @@ public class MainActivity extends AppCompatActivity{
         @Override
         public void onCheckedChanged(CompoundButton button, boolean isChecked){
             flag = isChecked;
-            Log.d("flag", String.valueOf(flag));
+            if (flag){
+                execute_b.setText(getString(R.string.signup));
+            }else {
+                execute_b.setText(getString(R.string.login_button));
+            }
+
         }
     }
 
@@ -120,6 +122,7 @@ public class MainActivity extends AppCompatActivity{
     public void onStart(){
         super.onStart();
 
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null){
             updateUI(currentUser);

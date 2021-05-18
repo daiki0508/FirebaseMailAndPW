@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FirebaseFirstSample</string>
+    <string name="app_name">FirebaseMailAndPW</string>
     <string name="hello">Hello World!</string>
     <string name="description">Please log in to the app.\nIf you don\'t have an account, sign up</string>
     <string name="mail">Mail:</string>
